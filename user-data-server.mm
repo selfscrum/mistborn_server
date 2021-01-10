@@ -50,9 +50,22 @@ Content-Disposition: attachment; filename="userdata.txt"
 apt -y update && apt -y upgrade
 apt -y install git
 apt -y install docker.io
+mkdir -p /opt
+cd /opt
 git clone https://gitlab.com/cyber5k/mistborn.git
+
+cat << EOF > /opt/install_with_env.sh
 export MISTBORN_DEFAULT_PASSWORD="${hcloud_token}"
 export MISTBORN_INSTALL_COCKPIT="y"
-sudo -E bash ./mistborn/scripts/install.sh
+/opt/mistborn/scripts/install.sh
+EOF
+
+# ownership handling - create a non-root user
+useradd -m mistborn
+chmod +x /opt/install_with_env.sh
+chown -R mistborn:mistborn /opt/mistborn /opt/install_with_env.sh
+
+# do not call install as root
+/bin/su -c "/opt/install_with_env.sh" - mistborn
 
 --//
