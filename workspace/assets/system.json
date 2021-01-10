@@ -1,0 +1,14 @@
+{
+    "github_user" : "selfscrum",
+    "github_repo" : "minetest_server",
+    "tfc_organization" :"selfscrum",
+    "workspace" : "mistborn_server",
+    "env_name" : "mistborn", 
+    "env_stage" : "dev",
+    "location" : "nbg1",
+    "system_function" : "APPLICATION",
+    "server_image" :"ubuntu-20.04",
+    "server_type" :"cx11",
+    "keyname" :"mistborn",
+    "network_zone" :"eu-central"
+}
