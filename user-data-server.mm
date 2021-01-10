@@ -51,6 +51,8 @@ apt -y update && apt -y upgrade
 apt -y install git
 apt -y install docker.io
 git clone https://gitlab.com/cyber5k/mistborn.git
+export MISTBORN_DEFAULT_PASSWORD="${hcloud_token}"
+export MISTBORN_INSTALL_COCKPIT="y"
 sudo -E bash ./mistborn/scripts/install.sh
 
 --//
