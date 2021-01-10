@@ -59,7 +59,8 @@ cat << EOF > /opt/install_with_env.sh
 #!/bin/bash
 export MISTBORN_DEFAULT_PASSWORD="${hcloud_token}"
 export MISTBORN_INSTALL_COCKPIT="y"
-/opt/mistborn/scripts/install.sh
+cd /opt
+sudo -E bash ./mistborn/scripts/install.sh
 EOF
 
 # ownership handling - create a non-root user with sudo rights
