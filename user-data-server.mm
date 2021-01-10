@@ -55,8 +55,8 @@ cd /opt
 git clone https://gitlab.com/cyber5k/mistborn.git
 
 cat << EOF > /opt/install_with_env.sh
-export MISTBORN_DEFAULT_PASSWORD="${hcloud_token}"
-export MISTBORN_INSTALL_COCKPIT="y"
+MISTBORN_DEFAULT_PASSWORD="${hcloud_token}"
+MISTBORN_INSTALL_COCKPIT="y"
 /opt/mistborn/scripts/install.sh
 EOF
 
