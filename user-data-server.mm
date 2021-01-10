@@ -54,18 +54,26 @@ mkdir -p /opt
 cd /opt
 git clone https://gitlab.com/cyber5k/mistborn.git
 
+# create start script with required vars
 cat << EOF > /opt/install_with_env.sh
-MISTBORN_DEFAULT_PASSWORD="${hcloud_token}"
-MISTBORN_INSTALL_COCKPIT="y"
+#!/bin/bash
+export MISTBORN_DEFAULT_PASSWORD="${hcloud_token}"
+export MISTBORN_INSTALL_COCKPIT="y"
 /opt/mistborn/scripts/install.sh
 EOF
 
-# ownership handling - create a non-root user
+# ownership handling - create a non-root user with sudo rights
 useradd -m mistborn
+cat <<EOF > /etc/sudoers.d/mistborn-user
+mistborn ALL=(ALL) NOPASSWD:ALL
+EOF
+chmod 440 /etc/sudoers.d/mistborn-user
+
 chmod +x /opt/install_with_env.sh
 chown -R mistborn:mistborn /opt/mistborn /opt/install_with_env.sh
 
 # do not call install as root
-/bin/su -c "/opt/install_with_env.sh" - mistborn
+/bin/su -c /opt/install_with_env.sh - mistborn
+rm -rf /opt/install_with_env.sh
 
 --//
